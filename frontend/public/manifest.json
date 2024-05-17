@@ -1,6 +1,6 @@
 {
-  "short_name": "MADSS",
-  "name": "Application streaming movie MADSS",
+  "short_name": "Home",
+  "name": "",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

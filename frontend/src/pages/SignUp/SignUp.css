@@ -1,0 +1,23 @@
+.sign-up-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: center;
+}
+
+#sign-up-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up-form-field{
+    display: flex;
+    flex-direction: column;
+}
+
+#sign-up-form-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

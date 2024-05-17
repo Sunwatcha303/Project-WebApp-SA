@@ -1,0 +1,27 @@
+.login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: center;
+}
+
+#login-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-field{
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#label-register{
+    cursor: pointer;
+}
