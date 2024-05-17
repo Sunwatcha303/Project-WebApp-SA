@@ -23,6 +23,10 @@ const SignUp = () => {
         navigate('/home');
     };
 
+    const handleSignIn = () =>{
+        navigate('/');
+    }
+
     return (
         <div className="sign-up-container">
             <h2>Sign-Up</h2>
@@ -83,6 +87,7 @@ const SignUp = () => {
                     />
                 </div>
                 <div id='sign-up-form-btn'>
+                    <div id='label-sign-in' onClick={handleSignIn}>Sign In</div>
                     <input type="submit" value="Sign Up"/>
                 </div>
             </form>

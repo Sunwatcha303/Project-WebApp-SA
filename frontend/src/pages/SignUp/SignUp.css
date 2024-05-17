@@ -21,3 +21,7 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+#label-sign-in{
+    cursor: pointer;
+}

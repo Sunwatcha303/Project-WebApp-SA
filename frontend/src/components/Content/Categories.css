@@ -1,0 +1,10 @@
+#categories-container{
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: auto;
+    height: 800px;
+    padding: 10px;
+}

@@ -1,0 +1,55 @@
+#recommend-content{
+    width: auto;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 80px;
+}
+
+#recommend-content-desc{
+    width: 50%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 5px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0));
+}
+
+#recommend-content-img{
+    width: 50%;
+    height: 600px;
+    background:
+        linear-gradient(to right, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0)),
+        linear-gradient(to top, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0)),
+        url('https://www.tallengestore.com/cdn/shop/products/PeakyBlinders-ThomasShelby-GarrisonBombing-NetflixTVShow-ArtPoster_a29a5be9-9611-43d9-b415-18655f60c629.jpg?v=1619864667');
+    background-size: cover;
+    background-position: center;
+}
+
+#recommend-content-desc-name{
+    font-size: xxx-large;
+    font-weight: 700;
+    margin-bottom: 60px;
+}
+#recommend-content-desc-info{
+    margin-bottom: 60px;
+}
+
+#recommend-content-desc-rate{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 24px;
+}
+
+#recommend-content-desc-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.btn-recommend, .rate-recommend{
+    margin: 0px 12px;
+}
