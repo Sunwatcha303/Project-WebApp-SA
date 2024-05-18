@@ -1,0 +1,7 @@
+#logo-img{
+    background-image: url('../../assets/logo.png');
+    background-size: cover;
+    width: 325px;
+    height: 122px;
+    margin: 50px 0px;
+}
