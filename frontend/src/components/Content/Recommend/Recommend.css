@@ -52,4 +52,55 @@
 
 .btn-recommend, .rate-recommend{
     margin: 0px 12px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn-recommend{
+    width: 90px;
+    height: 40px;
+}
+
+.rate-recommend{
+    color: grey;
+}
+
+#play-btn, #review-btn{
+    cursor: pointer;
+    background-color: #FF7A08;
+    border-radius: 15px;
+}
+
+#play-label, #review-label{
+    font-size: medium;
+    font-weight: bold;
+}
+
+#play-icon{
+    width: 16px;
+    height: 16px;
+    background-image: url('../../../assets/play_icon.png');
+    background-size: cover;
+}
+
+#add-list-btn{
+    cursor: pointer;
+    background-color: white;
+    border-radius: 15px;
+    width: 116px;
+}
+
+#add-list-label{
+    font-size: medium;
+    font-weight: bold;
+    color: black;
+}
+
+#add-list-icon{
+    width: 16px;
+    height: 16px;
+    background-image: url('../../../assets/addList_icon.png');
+    background-size: cover;
 }

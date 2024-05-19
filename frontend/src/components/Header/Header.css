@@ -11,8 +11,24 @@
 .nav-bar {
     padding: 10px;
     align-content: center;
+    width: 48px;
+    height: 48px;
+    background-size: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-#search-padding{
+#search-icon{
     margin-left: 70px;
+    background-image: url('../../assets/search_icon.png');
+}
+
+#setting-icon{
+    background-image: url('../../assets/setting_icon.png');
+    cursor: pointer;
+}
+
+#studio-icon{
+    background-image: url('../../assets/studio_icon.png');
+    cursor: pointer;
 }

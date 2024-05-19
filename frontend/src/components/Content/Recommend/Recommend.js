@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './Recommend.css';
 
 const Recommend = () => {
@@ -11,6 +13,14 @@ const Recommend = () => {
   const [duration, setDuration] = useState('1 hr 23 min');
   const [rate, setRate] = useState('16+');
   const [score, setScore] = useState('8.5');
+
+  const navigate = useNavigate();
+
+  const handlePlay = (event) => {
+    event.preventDefault();
+
+    navigate('/watch');
+  }
 
   return (
     <div id='recommend-content'>
@@ -30,9 +40,17 @@ const Recommend = () => {
           </div>
         </div>
         <div id='recommend-content-desc-btn'>
-          <div className='btn-recommend' id='play-btn'>Play</div>
-          <div className='btn-recommend' id='add-list-btn'>Add list</div>
-          <div className='btn-recommend' id='review-btn'>Review</div>
+          <div className='btn-recommend' id='play-btn' onClick={e => handlePlay(e)}>
+            <div id='play-icon'></div>
+            <div id='play-label'>Play</div>
+          </div>
+          <div className='btn-recommend' id='add-list-btn'>
+            <div id='add-list-icon'></div>
+            <div id='add-list-label'>Add list</div>
+          </div>
+          <div className='btn-recommend' id='review-btn'>
+            <div id='review-label'>Review</div>
+          </div>
         </div>
       </div>
       <div id='recommend-content-img'>
