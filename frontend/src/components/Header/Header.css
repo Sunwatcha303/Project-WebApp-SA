@@ -21,6 +21,7 @@
 #search-icon{
     margin-left: 70px;
     background-image: url('../../assets/search_icon.png');
+    cursor: pointer;
 }
 
 #setting-icon{

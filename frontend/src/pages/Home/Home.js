@@ -6,14 +6,20 @@ import Recommend from "../../components/Content/Recommend/Recommend"
 import Categories from "../../components/Content/Categories/Categories"
 
 const Home = () => {
+  const [isSearchHome, setIsSearchHome] = useState(false);
 
   return (
     <div id='home-container'>
-      <Header />
-      <Recommend />
-      <Categories />
+      <Header setIsSearchHome={setIsSearchHome} />
+      {!isSearchHome && (
+        <>
+          <Recommend />
+          <Categories />
+        </>
+      )}
     </div>
   );
 };
+
 
 export default Home;

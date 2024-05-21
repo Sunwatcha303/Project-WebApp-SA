@@ -1,20 +1,29 @@
+import React, { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './Header.css'
+import Search from '../Content/Search/Search';
 
-const Header = () => {
+import './Header.css';
+
+const Header = ({ setIsSearchHome }) => {
     const navigate = useNavigate();
+    const [isSearchHeader, setIsSearchHeader] = useState(false);
 
-    const handleNavbar = (event, router) =>{
+    const handleNavbar = (event, router) => {
         event.preventDefault();
-
         navigate(router);
     }
+
     return (
+        
         <div id="header-container">
-            <div className="nav-bar" id='search-icon'></div>
-            <div className="nav-bar" id='setting-icon' onClick={e => handleNavbar(e, '/setting')}></div>
-            <div className="nav-bar" id='studio-icon' onClick={e => handleNavbar(e, '/studio')}></div>
+            <Search setIsSearchHome={setIsSearchHome} setIsSearchHeader={setIsSearchHeader} />
+            {!isSearchHeader &&(
+                <>
+                    <div className="nav-bar" id='setting-icon' onClick={(e) => handleNavbar(e, '/setting')}></div>
+                    <div className="nav-bar" id='studio-icon' onClick={(e) => handleNavbar(e, '/studio')}></div>
+                </>
+            )}
         </div>
     );
 }
