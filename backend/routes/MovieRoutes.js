@@ -7,7 +7,7 @@ const {
     AddMovie,
     UpdateMovieById,
     DeleteMovieById
-} = require("../controller/movieController")
+} = require("../controller/MovieController")
 
 router.route("/all").get(GetAllMovie);
 

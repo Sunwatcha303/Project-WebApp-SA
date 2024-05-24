@@ -18,7 +18,8 @@ const SignInForm = () => {
 
     const handleSignUp = (event) =>{
         event.preventDefault();
-
+        
+        
         navigate('/signup')
     } 
 
