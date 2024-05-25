@@ -1,4 +1,25 @@
-#movies-container{
-    
+#movies-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.movie-item {
     height: 300px;
+    min-width: 200px;
+    margin-right: 16px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+#movies-container::-webkit-scrollbar {
+    display: none;
 }

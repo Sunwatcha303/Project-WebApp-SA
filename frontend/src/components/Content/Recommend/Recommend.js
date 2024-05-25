@@ -7,19 +7,51 @@ const Recommend = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const [name, setName] = useState('Peaky Blinders');
-  const [description, setDescription] = useState('Peaky Blinders เป็นเรื่องราวที่ดัดแปลงมาจากบุคคลที่มีตัวตนจริงในอังกฤษช่วงคริสต์ศตวรรษที่ 19 แต่ในชีวิตจริงพวกเขาเป็นแก๊งอันธพาลเล็ก ๆ ในเมืองเบอร์มิงแฮม สมาชิกของกลุ่มส่วนใหญ่เป็นเยาวชนแต่งตัวจัดจ้าน จากคำบอกเล่าของผู้คนบอกว่า ชาวแก๊งบางคนมีแต่กลิ่นเหล้าเหม็นหึ่ง เดินเตร่ไปมาบนถนน ไม่ได้มีอำนาจล้นมือมากขนาดนั้น แต่ ...');
-  const [release, setRelease] = useState('2013');
-  const [duration, setDuration] = useState('1 hr 23 min');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [release, setRelease] = useState('');
+  const [duration, setDuration] = useState('');
+  const [cover_url, setCover] = useState('');
   const [rate, setRate] = useState('16+');
   const [score, setScore] = useState('8.5');
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/movie/all');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const jsonData = await response.json();
+        setData(jsonData[0]);
+        setName(jsonData[0].name);
+        setDescription(jsonData[0].description);
+        const releaseDate = new Date(jsonData[0].release_date);
+        const releaseDateString = releaseDate.toISOString().slice(0, 10);
+
+        // Convert duration to "hours" and "minutes"
+        const hours = Math.floor(jsonData[0].duration / 60);
+        const minutes = jsonData[0].duration % 60;
+
+        // Format the duration as "X hr Y min"
+        const durationString = `${hours} hr ${minutes} min`;
+        setRelease(releaseDateString);
+        setDuration(durationString);
+        setCover(jsonData[0].cover_url);
+      } catch (error) {
+        setError(error);
+      }
+    };
+  
+    fetchData();
+  }, []);  
+
   const handlePlay = (event) => {
     event.preventDefault();
 
-    navigate('/watch');
+    navigate('/watch?m='+data.hash_id);
   }
 
   return (
@@ -54,7 +86,7 @@ const Recommend = () => {
         </div>
       </div>
       <div id='recommend-content-img'>
-        
+        <img src={cover_url}></img>
       </div>
     </div>
   );

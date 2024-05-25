@@ -11,27 +11,19 @@ const Recommend = () => {
     <div id='categories-container'>
       <div className='categories-content'>
         <div className='categories-label'>หนังแนะนำสำหรับคุณ</div>
-        <div className='categories-movie'>
-          <Movies query='recommend'/>
-        </div>
+        <Movies query='all'/>
       </div>
       <div className='categories-content'>
-      <div className='categories-label'>10 อันดับของวันนี้</div>
-        <div className='categories-movie'>
-          <Movies query='recommend'/>
-        </div>
+        <div className='categories-label'>10 อันดับของวันนี้</div>
+        <Movies query='all'/>
       </div>
       <div className='categories-content'>
         <div className='categories-label'>หนังใหม่</div>
-        <div className='categories-movie'>
-          <Movies query='recommend'/>
-        </div>
+        <Movies query='all'/>
       </div>
       <div className='categories-content'>
         <div className='categories-label'>หนังรางวัล</div>
-        <div className='categories-movie'>
-          <Movies query='recommend'/>
-        </div>
+        <Movies query='all'/>
       </div>
     </div>
   );
