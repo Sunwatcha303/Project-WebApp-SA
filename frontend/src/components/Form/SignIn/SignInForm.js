@@ -1,27 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignInForm.css'
+import './SignInForm.css';
 
 const SignInForm = () => {
-    const [username, setUsername] = useState('');
+    const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle login logic here
-        console.log('Username:', username);
-        console.log('Password:', password);
 
-        navigate('/home')
+        const dataBody = JSON.stringify({ usernameOrEmail, password });
+        console.log(dataBody);
+
+        try {
+            const response = await fetch('http://localhost:5001/signin/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: dataBody,
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Store the token in localStorage or cookies
+                localStorage.setItem('token', data.token);
+                // Or store the token in cookies (example using js-cookie library)
+                // import Cookies from 'js-cookie';
+                // Cookies.set('token', data.token, { expires: 7 });
+
+                navigate('/home');
+            } else {
+                if (response.status === 401) {
+                    setError('Invalid username or password'); // Display user-friendly message
+                } else {
+                    setError('An error occurred. Please try again.'); // Generic error message
+                }
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('An error occurred. Please try again.');
+        }
     };
 
-    const handleSignUp = (event) =>{
+    const handleSignUp = (event) => {
         event.preventDefault();
-        
-        
-        navigate('/signup')
-    } 
+        navigate('/signup');
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/home');
+        }
+    });
 
     return (
         <div className="sign-in-form-container">
@@ -33,9 +69,9 @@ const SignInForm = () => {
                         id="username"
                         name="username"
                         className='sign-in-input-field'
-                        value={username}
-                        placeholder='username or email'
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={usernameOrEmail}
+                        placeholder='Username or email'
+                        onChange={(e) => setUsernameOrEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -46,13 +82,14 @@ const SignInForm = () => {
                         name="password"
                         className='sign-in-input-field'
                         value={password}
-                        placeholder='password'
+                        placeholder='Password'
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
+                {error && <p className="error-message">{error}</p>}
                 <div id='sign-in-form-btn'>
-                    <input id='sign-in-btn' type="submit" value="Sign In"/>
+                    <input id='sign-in-btn' type="submit" value="Sign In" />
                     <div id='label-sign-up' onClick={handleSignUp}>Sign Up</div>
                 </div>
             </form>

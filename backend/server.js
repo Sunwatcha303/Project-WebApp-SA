@@ -9,9 +9,13 @@ var cors = require('cors')
 
 const port = process.env.PORT;
 
-app.use(cors())
+const corsConfig = {
+    credentials: true,
+    origin: true,
+};
+app.use(cors(corsConfig));
 app.use(express.json());
-app.use("/movie", require("./routes/MovieRoutes"));
+app.use("/movie", verifyToken, require("./routes/MovieRoutes"));
 app.use("/signin", require("./routes/SignInRoutes"));
 app.use(errorHandler);
 

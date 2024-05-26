@@ -36,9 +36,7 @@ const Search = ({setIsSearchHome, setIsSearchHeader}) => {
                     <div className='search-nav' id='logo-to-close'></div>
                 </div>
                 <div id='search-result'>
-                    <div>
-                        <Movies query={query} />
-                    </div>
+                    <Movies query={query} />
                 </div>
             </div>
         )}

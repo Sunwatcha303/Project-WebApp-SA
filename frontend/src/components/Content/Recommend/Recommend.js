@@ -20,7 +20,17 @@ const Recommend = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5001/movie/all');
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/');
+          return;
+        }
+        const response = await fetch('http://localhost:5001/movie/all', {
+          method: 'GET',
+          headers: {
+            'x-access-token': token
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -30,11 +40,11 @@ const Recommend = () => {
         setDescription(jsonData[0].description);
         const releaseDate = new Date(jsonData[0].release_date);
         const releaseDateString = releaseDate.toISOString().slice(0, 10);
-
+  
         // Convert duration to "hours" and "minutes"
         const hours = Math.floor(jsonData[0].duration / 60);
         const minutes = jsonData[0].duration % 60;
-
+  
         // Format the duration as "X hr Y min"
         const durationString = `${hours} hr ${minutes} min`;
         setRelease(releaseDateString);
@@ -44,14 +54,14 @@ const Recommend = () => {
         setError(error);
       }
     };
-  
+    
     fetchData();
-  }, []);  
+  }, []);
 
   const handlePlay = (event) => {
     event.preventDefault();
 
-    navigate('/watch?m='+data.hash_id);
+    navigate('/watch?m=' + data.hash_id);
   }
 
   return (

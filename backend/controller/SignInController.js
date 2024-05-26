@@ -20,12 +20,15 @@ const SignIn = async (req, res) => {
         }
 
         const hashedPassword = user[0].password;
-        // const isMatch = await bcrypt.compare(password, hashedPassword);
-        const isMatch = password == hashedPassword;
+        const isMatch = password === hashedPassword; // Adjust this to use bcrypt if needed
 
         if (isMatch) {
             // Generate a token
-            const token = jwt.sign({ id: user.id, username: user.username, email : user.email }, SECRET_KEY, { expiresIn: '1h' });
+            const token = jwt.sign(
+                { id: user.id, username: user.username, email: user.email },
+                SECRET_KEY,
+                { expiresIn: '1min' }
+            );
             res.status(200).json({ message: 'Sign in successful', token });
         } else {
             res.status(401).json({ message: 'Invalid username or password' });
