@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import isTokenExpired from '../../../utils/utils';
 import './SignInForm.css';
 
 const SignInForm = () => {
@@ -33,7 +34,7 @@ const SignInForm = () => {
                 // import Cookies from 'js-cookie';
                 // Cookies.set('token', data.token, { expires: 7 });
 
-                navigate('/home');
+                navigate('/');
             } else {
                 if (response.status === 401) {
                     setError('Invalid username or password'); // Display user-friendly message
@@ -51,13 +52,6 @@ const SignInForm = () => {
         event.preventDefault();
         navigate('/signup');
     };
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            navigate('/home');
-        }
-    });
 
     return (
         <div className="sign-in-form-container">

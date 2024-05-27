@@ -20,11 +20,11 @@ const SignUpForm = () => {
         console.log('Password:', password);
         console.log('RePassword:', repassword);
 
-        navigate('/home');
+        navigate('/');
     };
 
     const handleSignIn = () =>{
-        navigate('/');
+        navigate('/signin');
     }
 
     return (

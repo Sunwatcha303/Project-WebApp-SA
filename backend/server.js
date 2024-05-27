@@ -1,5 +1,4 @@
 const express = require("express");
-const errorHandler = require("./middleware/errorHandler");
 const verifyToken = require("./middleware/VerifyToken");
 
 const dotenv = require("dotenv").config();
@@ -17,7 +16,6 @@ app.use(cors(corsConfig));
 app.use(express.json());
 app.use("/movie", verifyToken, require("./routes/MovieRoutes"));
 app.use("/signin", require("./routes/SignInRoutes"));
-app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

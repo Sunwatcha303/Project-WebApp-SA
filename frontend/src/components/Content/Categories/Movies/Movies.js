@@ -8,12 +8,8 @@ const Movies = ({ query }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                navigate('/');
-                return;
-            }
             try {
+                const token = localStorage.getItem('token');
                 const searchQuery = query.trim() === '' ? 'all' : query;
                 const response = await fetch(`http://localhost:5001/movie/${searchQuery}`, {
                     method: 'GET',

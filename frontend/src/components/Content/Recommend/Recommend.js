@@ -12,7 +12,7 @@ const Recommend = () => {
   const [release, setRelease] = useState('');
   const [duration, setDuration] = useState('');
   const [cover_url, setCover] = useState('');
-  const [rate, setRate] = useState('16+');
+  const [rate, setRate] = useState('');
   const [score, setScore] = useState('8.5');
 
   const navigate = useNavigate();
@@ -21,10 +21,6 @@ const Recommend = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          navigate('/');
-          return;
-        }
         const response = await fetch('http://localhost:5001/movie/all', {
           method: 'GET',
           headers: {
@@ -50,6 +46,8 @@ const Recommend = () => {
         setRelease(releaseDateString);
         setDuration(durationString);
         setCover(jsonData[0].cover_url);
+        setRate(jsonData[0].rate_age);
+        setScore(jsonData[0].score);
       } catch (error) {
         setError(error);
       }

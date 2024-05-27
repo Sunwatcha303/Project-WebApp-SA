@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const GetAllMoviesRepo = () => {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM movies';
+        const query = 'SELECT * FROM movies INNER JOIN score_movies ON movies.hash_id = score_movies.hash_id';
         connection.query(query, (err, results) => {
             if (err) {
                 reject(err);
