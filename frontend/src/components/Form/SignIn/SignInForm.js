@@ -16,7 +16,7 @@ const SignInForm = () => {
         console.log(dataBody);
 
         try {
-            const response = await fetch('http://localhost:5001/signin/', {
+            const response = await fetch('http://localhost:5001/user/signin/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const errorHandle = require('./errorHandle');
+const {errorHandler, logging} = require('../util/logging');
 require('dotenv').config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -10,18 +10,23 @@ const verifyToken = (req, res, next) => {
     console.log('Token:', token);
 
     if (!token) {
-        return res.status(errorHandle.REQUIRE_TOKEN.code).json({ 
-            desc_th: errorHandle.REQUIRE_TOKEN.desc_th, 
-            desc_en: errorHandle.REQUIRE_TOKEN.desc_en 
-        });
+        const errHd = errorHandler.REQUIRE_TOKEN;
+            console.error(errHd);
+            return res.status(errHd.code).json({
+                name: errHd.name,
+                desc_th: errHd.desc_th,
+                desc_en: errHd.desc_en,
+            });
     }
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) {
-            console.error('Token verification error:', err);
-            return res.status(errorHandle.EXPIRED_OR_INVALID_TOKEN.code).json({ 
-                desc_th: errorHandle.EXPIRED_OR_INVALID_TOKEN.desc_th, 
-                desc_en: errorHandle.EXPIRED_OR_INVALID_TOKEN.desc_en 
+            const errHd = errorHandler.EXPIRED_OR_INVALID_TOKEN;
+            console.error(err, errHd);
+            return res.status(errHd.code).json({
+                name: errHd.name,
+                desc_th: errHd.desc_th,
+                desc_en: errHd.desc_en,
             });
         }
         console.log('User info:', user);

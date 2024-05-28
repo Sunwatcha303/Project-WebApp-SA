@@ -1,0 +1,45 @@
+#profile-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+#menu-side{
+    width: 250px;
+    height: auto;
+    background-color: rgb(255, 255, 255, 0.2);
+    border-radius: 0px 15px 15px 0px;
+}
+
+#box-info-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 80px;
+}
+
+#box-info-detail{
+    width: 800px;
+    height: 800px;
+    background-color: rgb(255, 255, 255, 0.2);
+    border-radius: 15px;
+    margin: 0 80px 80px; 
+}
+
+#sign-out-icon{
+    width: 48px;
+    height: 48px;
+    background-image: url('../../assets/sign_out.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#sign-out{
+    display: flex;
+    flex-direction: column;
+}
+
+#sign-out p{
+    color: gray;
+}

@@ -17,6 +17,10 @@ const Movies = ({ query }) => {
                         'x-access-token': token
                     }
                 });
+                if(response.status === 401 || response.status === 400){
+                    navigate('/signin');
+                    return;
+                }
                 const data = await response.json();
                 setMovies(data);
             } catch (error) {

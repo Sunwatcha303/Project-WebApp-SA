@@ -15,7 +15,7 @@ const corsConfig = {
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use("/movie", verifyToken, require("./routes/MovieRoutes"));
-app.use("/signin", require("./routes/SignInRoutes"));
+app.use("/user", require("./routes/UserRoutes"));
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

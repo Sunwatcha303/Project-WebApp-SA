@@ -8,9 +8,11 @@ const SignUpForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
+
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle sign-up logic here
 
@@ -19,6 +21,37 @@ const SignUpForm = () => {
         console.log('Email:', email);
         console.log('Password:', password);
         console.log('RePassword:', repassword);
+
+        if(password !== repassword){
+            setError('re-password not match')
+            return;
+        }
+
+        const dataBody = JSON.stringify({username, fullname, email, password});
+
+        try {
+            const response = await fetch('http://localhost:5001/user/signup/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: dataBody,
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+
+                navigate('/');
+            } else {
+                setError('An error occurred. Please try again.'); // Generic error message
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('An error occurred. Please try again.');
+        }
 
         navigate('/');
     };
@@ -91,6 +124,7 @@ const SignUpForm = () => {
                         required
                     />
                 </div>
+                {error && <p className="error-message">{error}</p>}
                 <div id='sign-up-form-btn'>
                     <div id='label-sign-in' onClick={handleSignIn}>Sign In</div>
                     <input id='sign-up-btn' type="submit" value="Sign Up"/>
