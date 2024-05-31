@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Movies.css';
 
-const Movies = ({ query }) => {
+const Movies = ({ query , isSearch}) => {
     const [movies, setMovies] = useState([]);
     const navigate = useNavigate();
 
@@ -11,13 +11,15 @@ const Movies = ({ query }) => {
             try {
                 const token = localStorage.getItem('token');
                 const searchQuery = query.trim() === '' ? 'all' : query;
-                const response = await fetch(`http://localhost:5001/movie/${searchQuery}`, {
+                const response = await fetch(`http://backend:5001/movie/${searchQuery}`, {
                     method: 'GET',
                     headers: {
-                        'x-access-token': token
+                        'x-access-token': token,
+                        'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
                     }
                 });
                 if(response.status === 401 || response.status === 400){
+                    localStorage.removeItem('token');
                     navigate('/signin');
                     return;
                 }
@@ -27,8 +29,33 @@ const Movies = ({ query }) => {
                 console.error('Error fetching data:', error);
             }
         };
-        
-        fetchData();
+        const fetchDataSearch = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const searchQuery = query.trim() === '' ? 'all' : query;
+                const response = await fetch(`http://backend:5001/movie/search/${searchQuery}`, {
+                    method: 'GET',
+                    headers: {
+                        'x-access-token': token,
+                        'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
+                    }
+                });
+                if(response.status === 401 || response.status === 400){
+                    localStorage.removeItem('token');
+                    navigate('/signin');
+                    return;
+                }
+                const data = await response.json();
+                setMovies(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        if(isSearch){
+            fetchDataSearch();
+        }else{
+            fetchData();
+        }
     }, [query]);
 
     const handleWatchMovie = (event, id) => {

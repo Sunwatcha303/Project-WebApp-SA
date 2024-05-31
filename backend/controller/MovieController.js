@@ -1,6 +1,7 @@
 const {
     GetAllMoviesRepo,
     GetMovieByIdRepo,
+    GetMoviesBySearchQueryRepo,
     AddMovieRepo,
     UpdateMovieByIdRepo,
     DeleteMovieByIdRepo,
@@ -59,6 +60,36 @@ const GetMovieById = async (req, res) => {
             });
         }
         return res.status(200).json(movie);
+    } catch (err) {
+        const errHd = errorHandler.SERVER_ERROR;
+        console.error(err, errHd);
+        return res.status(errHd.code).json({
+            name: errHd.name,
+            desc_th: errHd.desc_th,
+            desc_en: errHd.desc_en
+        });
+    }
+}
+
+// @desc Get movies by search query
+// @route Get /movie/search/:query
+// @access public
+const GetMoviesBySearchQuery = async (req, res) => {
+    try {
+        const { query } = req.params;
+        const movies = await GetMoviesBySearchQueryRepo(query);
+        console.log('URL:', req.originalUrl); // Add URL logging
+        if (!movies) {
+            console.log('Movie not found'); // Add logging
+            const errHd = errorHandler.MOVIE_NOT_FOUND;
+            console.error(errHd);
+            return res.status(errHd.code).json({
+                name: errHd.name,
+                desc_th: errHd.desc_th,
+                desc_en: errHd.desc_en
+            });
+        }
+        return res.status(200).json(movies);
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
         console.error(err, errHd);
@@ -161,4 +192,4 @@ const DeleteMovieById = async (req, res) => {
     }
 }
 
-module.exports = { GetAllMovie, GetMovieById, AddMovie, UpdateMovieById, DeleteMovieById };
+module.exports = { GetAllMovie, GetMovieById, GetMoviesBySearchQuery, AddMovie, UpdateMovieById, DeleteMovieById };

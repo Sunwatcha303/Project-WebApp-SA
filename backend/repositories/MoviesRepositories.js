@@ -29,6 +29,24 @@ const GetMovieByIdRepo = (id) => {
     });
 };
 
+const GetMoviesBySearchQueryRepo = (query) => {
+    return new Promise((resolve, reject) => {
+        const sqlQuery = 'SELECT * FROM movies WHERE name LIKE ? OR description LIKE ?';
+        const wildcardQuery = `%${query}%`;
+
+        connection.query(sqlQuery, [wildcardQuery, wildcardQuery], (err, results) => {
+            if (err) {
+                reject(err);
+            } else if (results.length === 0) {
+                resolve(null);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
+
 const AddMovieRepo = (id, name, description, release_date, duration, cover_url) => {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO movies (hash_id, name, description, release_date, duration, cover_url) VALUES (?, ?, ?, ?, ?, ?)';
@@ -69,5 +87,5 @@ const DeleteMovieByIdRepo = (id) => {
 };
 
 module.exports = {
-  GetAllMoviesRepo, GetMovieByIdRepo, AddMovieRepo, UpdateMovieByIdRepo, DeleteMovieByIdRepo,
+  GetAllMoviesRepo, GetMovieByIdRepo, GetMoviesBySearchQueryRepo, AddMovieRepo, UpdateMovieByIdRepo, DeleteMovieByIdRepo,
 };

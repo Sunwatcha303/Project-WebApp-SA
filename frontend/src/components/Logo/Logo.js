@@ -1,11 +1,20 @@
-import './Logo.css'
+import React from 'react';
+import './Logo.css';
 
-const Logo = () =>{
-    return (
-        <div id='logo-img'>
+const Logo = ({ handleClick, w, h }) => {
+  return (
+    <div
+      id='logo-img'
+      onClick={handleClick}
+      style={{
+        width: w,
+        height: h,
+        cursor: handleClick ? 'pointer' : 'default'
+      }}
+    >
 
-        </div>
-    );
-}
+    </div>
+  );
+};
 
 export default Logo;

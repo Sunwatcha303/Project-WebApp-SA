@@ -35,7 +35,7 @@ const SignIn = async (req, res) => {
             const token = jwt.sign(
                 { id: user.id, username: user.username, email: user.email },
                 SECRET_KEY,
-                { expiresIn: '1min' }
+                { expiresIn: '1d' }
             );
             const log = logging.SIGNIN_SUCCESSFUL;
             console.error(log);

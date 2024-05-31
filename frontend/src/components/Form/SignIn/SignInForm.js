@@ -13,13 +13,14 @@ const SignInForm = () => {
         event.preventDefault();
 
         const dataBody = JSON.stringify({ usernameOrEmail, password });
-        console.log(dataBody);
+        // console.log(dataBody);
 
         try {
-            const response = await fetch('http://localhost:5001/user/signin/', {
+            const response = await fetch('http://backend:5001/user/signin/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
                 },
                 body: dataBody,
                 credentials: 'include',

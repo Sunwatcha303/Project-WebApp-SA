@@ -42,6 +42,7 @@
     height: 89px;
     background-image: url('../../../assets/logo.png');
     background-size: cover;
+    cursor: pointer;
 }
 
 .search-nav{

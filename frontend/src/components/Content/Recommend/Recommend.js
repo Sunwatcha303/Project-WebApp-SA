@@ -21,10 +21,11 @@ const Recommend = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5001/movie/all', {
+        const response = await fetch('http://backend:5001/movie/all', {
           method: 'GET',
           headers: {
-            'x-access-token': token
+            'x-access-token': token,
+            'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
           }
         });
         if (!response.ok) {

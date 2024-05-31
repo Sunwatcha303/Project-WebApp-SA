@@ -4,6 +4,7 @@ const router = express.Router();
 const {
     GetAllMovie,
     GetMovieById,
+    GetMoviesBySearchQuery,
     AddMovie,
     UpdateMovieById,
     DeleteMovieById
@@ -12,6 +13,8 @@ const {
 router.route("/all").get(GetAllMovie);
 
 router.route("/:id").get(GetMovieById);
+
+router.route("/search/:query").get(GetMoviesBySearchQuery);
 
 router.route("/").post(AddMovie);
 

@@ -19,6 +19,9 @@ const errorHandler = {
 
     INVALID_USERNAME_OR_PASSWORD: responseHandler.log(401, 'INVALID_USERNAME_OR_PASSWORD', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'Invalid username or password'),
     DUPLICATE_USERNAME_OR_EMAIL: responseHandler.log(401, 'DUPLICATE_USERNAME_OR_EMAIL', 'ชื่อผู้ใช้หรืออีเมลนี้มีคนใช้ไปแล้ว', 'Duplicate username or email'),
+
+    REQUIRE_API_KEY: responseHandler.log(400, 'REQUIRE_API_KEY', 'ต้องการ api key', 'Require api key'),
+    INVALID_API_KEY: responseHandler.log(401, ' INVALID_API_KEY', 'Api key ไม่ถูกต้อง', 'Invalid api key'),
 };
 
 const logging = {

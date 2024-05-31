@@ -1,5 +1,20 @@
-DROP TABLE score_movies;
-DROP TABLE movies;
+CREATE DATABASE IF NOT EXISTS MADSS;
+
+USE MADSS;
+
+DROP TABLE IF EXISTS score_movies;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS users;
+
+-- Create users table
+CREATE TABLE users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fullname VARCHAR(255),
+    PRIMARY KEY (id)
+);
 
 -- Create the movies table
 CREATE TABLE movies (

@@ -30,10 +30,11 @@ const SignUpForm = () => {
         const dataBody = JSON.stringify({username, fullname, email, password});
 
         try {
-            const response = await fetch('http://localhost:5001/user/signup/', {
+            const response = await fetch('http://backend:5001/user/signup/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
                 },
                 body: dataBody,
                 credentials: 'include',

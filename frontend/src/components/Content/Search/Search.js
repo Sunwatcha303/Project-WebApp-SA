@@ -6,7 +6,6 @@ import Movies from '../Categories/Movies/Movies'
 
 const Search = ({setIsSearchHome, setIsSearchHeader}) => {
     const [isSearchState, setIsSearchState] = useState(false);
-
     const [query, setQuery] = useState('');
     
     const handleSearch = (event) => {
@@ -33,10 +32,10 @@ const Search = ({setIsSearchHome, setIsSearchHeader}) => {
                             onChange={e => setQuery(e.target.value)}>
                         </input>
                     </div>
-                    <div className='search-nav' id='logo-to-close'></div>
+                    <div className='search-nav' id='logo-to-close' onClick={handleSearch}></div>
                 </div>
                 <div id='search-result'>
-                    <Movies query={query} />
+                    <Movies query={query} isSearch={true}/>
                 </div>
             </div>
         )}

@@ -14,8 +14,7 @@
 
 #box-info-container{
     display: flex;
-    flex-direction: row;
-    margin-top: 80px;
+    flex-direction: column;
 }
 
 #box-info-detail{
@@ -42,4 +41,14 @@
 
 #sign-out p{
     color: gray;
+}
+
+#box-info{
+    display: flex;
+    flex-direction: row;
+}
+
+#box-info-logo{
+    display: flex;
+    justify-content: flex-end;
 }
