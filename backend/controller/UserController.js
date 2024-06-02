@@ -94,7 +94,7 @@ const SignUp = async (req, res) => {
         const token = jwt.sign(
             { id: newUser.id, username: newUser.username, email: newUser.email },
             SECRET_KEY,
-            { expiresIn: '1min' }
+            { expiresIn: '1d' }
         );
 
         const log = logging.SIGNUP_SUCCESSFUL;

@@ -51,6 +51,7 @@ const Recommend = () => {
         setRate(jsonData[0].rate_age);
         setScore(jsonData[0].score);
       } catch (error) {
+        console.error('Error fetching data:', error);
         setError(error);
       }
     };

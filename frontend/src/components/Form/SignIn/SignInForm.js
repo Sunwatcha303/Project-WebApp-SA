@@ -14,9 +14,7 @@ const SignInForm = () => {
         event.preventDefault();
 
         const dataBody = JSON.stringify({ usernameOrEmail, password });
-        // console.log(dataBody);
 
-        console.log(config.apiUrl);
         try {
             const response = await fetch(`${config.apiUrl}/user/signin/`, {
                 method: 'POST',
@@ -33,20 +31,19 @@ const SignInForm = () => {
             if (response.ok) {
                 // Store the token in localStorage or cookies
                 localStorage.setItem('token', data.token);
-                // Or store the token in cookies (example using js-cookie library)
-                // import Cookies from 'js-cookie';
-                // Cookies.set('token', data.token, { expires: 7 });
 
                 navigate('/');
+                return;
             } else {
                 if (response.status === 401) {
                     setError('Invalid username or password'); // Display user-friendly message
                 } else {
                     setError('An error occurred. Please try again.'); // Generic error message
                 }
+                return;
             }
         } catch (error) {
-            console.error('Error during login:', error);
+            console.error('Error during signin:', error);
             setError('An error occurred. Please try again.');
         }
     };
