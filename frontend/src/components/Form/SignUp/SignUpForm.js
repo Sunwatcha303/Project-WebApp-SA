@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import config from '../../../utils/config';
 import './SignUpForm.css';
 
 const SignUpForm = () => {
@@ -30,11 +31,11 @@ const SignUpForm = () => {
         const dataBody = JSON.stringify({username, fullname, email, password});
 
         try {
-            const response = await fetch('http://backend:5001/user/signup/', {
+            const response = await fetch(`${config.apiUrl}/user/signup/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
+                    'x-api-key': config.apiKey,
                 },
                 body: dataBody,
                 credentials: 'include',

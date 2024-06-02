@@ -2,18 +2,20 @@ const express = require("express");
 const verifyToken = require("./middleware/VerifyToken");
 const verifyApiKey = require('./middleware/VerifyApiKey');
 
-const dotenv = require("dotenv").config();
-
 const app = express();
-var cors = require('cors')
 
-const port = process.env.PORT;
-const host = process.env.HOST;
+var cors = require('cors');
+
+const config = require("./config");
+
+const port = config.PORT;
+const host = config.HOST;
 
 const corsConfig = {
     credentials: true,
     origin: true,
 };
+
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use("/health", require("./routes/HealthRoutes"));

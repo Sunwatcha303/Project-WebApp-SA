@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import config from '../../../../utils/config';
 import './Movies.css';
 
 const Movies = ({ query , isSearch}) => {
@@ -11,11 +12,11 @@ const Movies = ({ query , isSearch}) => {
             try {
                 const token = localStorage.getItem('token');
                 const searchQuery = query.trim() === '' ? 'all' : query;
-                const response = await fetch(`http://backend:5001/movie/${searchQuery}`, {
+                const response = await fetch(`${config.apiUrl}/movie/${searchQuery}`, {
                     method: 'GET',
                     headers: {
                         'x-access-token': token,
-                        'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
+                        'x-api-key': config.apiKey,
                     }
                 });
                 if(response.status === 401 || response.status === 400){
@@ -33,11 +34,11 @@ const Movies = ({ query , isSearch}) => {
             try {
                 const token = localStorage.getItem('token');
                 const searchQuery = query.trim() === '' ? 'all' : query;
-                const response = await fetch(`http://backend:5001/movie/search/${searchQuery}`, {
+                const response = await fetch(`${config.apiUrl}/movie/search/${searchQuery}`, {
                     method: 'GET',
                     headers: {
                         'x-access-token': token,
-                        'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
+                        'x-api-key': config.apiKey,
                     }
                 });
                 if(response.status === 401 || response.status === 400){

@@ -4,7 +4,6 @@ const { errorHandler, logging } = require('../util/logging');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
 

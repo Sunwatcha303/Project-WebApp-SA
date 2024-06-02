@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isTokenExpired from '../../../utils/utils';
+import config from '../../../utils/config';
 import './SignInForm.css';
 
 const SignInForm = () => {
@@ -15,12 +16,13 @@ const SignInForm = () => {
         const dataBody = JSON.stringify({ usernameOrEmail, password });
         // console.log(dataBody);
 
+        console.log(config.apiUrl);
         try {
-            const response = await fetch('http://backend:5001/user/signin/', {
+            const response = await fetch(`${config.apiUrl}/user/signin/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': 'o4Eewa9thohSh4uch2EixeegahRee2ba9Veey3Oonai0mohfiequ4Ait1aew5ruth',
+                    'x-api-key': config.apiKey,
                 },
                 body: dataBody,
                 credentials: 'include',
