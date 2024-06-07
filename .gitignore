@@ -3,3 +3,8 @@
 
 /backend/node_modules/
 /backend/.env
+
+/test/env.yaml
+log.html
+output.xml
+report.html

@@ -1,0 +1,2 @@
+get_health_url: /health
+post_signin_url: /user/signin

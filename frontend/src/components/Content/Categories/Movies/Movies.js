@@ -49,7 +49,7 @@ const Movies = ({ query , isSearch}) => {
                 const data = await response.json();
                 setMovies(data);
             } catch (error) {
-                // console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error);
             }
         };
         if(isSearch){

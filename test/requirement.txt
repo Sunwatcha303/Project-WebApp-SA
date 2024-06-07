@@ -1,0 +1,6 @@
+robotframework==6.0
+robotframework-requests==0.9.3
+robotframework-databaselibrary==1.2.4
+urllib3==1.26.15
+robotframework-jsonlibrary==0.3.1
+pymysql==1.0.2

@@ -1,0 +1,38 @@
+success:
+  data:
+    usernameOrEmail: "mockup"
+    password: "mockup"
+  status_code: 200
+  expect:
+    name: 'SIGNIN_SUCCESSFUL'
+    desc_th: 'เข้าสู่ระบบสำเร็จ'
+    desc_en: 'Sign-in successful'
+
+fail:
+  without_api_key:
+    data:
+      usernameOrEmail: "mockup"
+      password: "mockup"
+    status_code: 400
+    expect:
+      name: 'REQUIRE_API_KEY'
+      desc_th: 'ต้องการ api key'
+      desc_en: 'Require api key'
+  wrong_password:
+    data:
+      usernameOrEmail: "mockup"
+      password: "wrongpassword"
+    status_code: 401
+    expect:
+      name: 'INVALID_USERNAME_OR_PASSWORD'
+      desc_th: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+      desc_en: 'Invalid username or password'
+  wrong_username:
+    data:
+      usernameOrEmail: "wrongusername"
+      password: "mockup"
+    status_code: 401
+    expect:
+      name: 'INVALID_USERNAME_OR_PASSWORD'
+      desc_th: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+      desc_en: 'Invalid username or password'
