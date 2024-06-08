@@ -1,4 +1,13 @@
 success:
+  predata:
+    table: users
+    key: "(username, email, password, fullname)"
+    value: 
+      username: mockup
+      email: mockup@mockup.com 
+      password: $2b$10$iQX2cDC5nCQ7CBrYFhhFSeUmpW82UYpoAhyp0omGywsnzRimz5WKS
+      fullname: mockup mockup
+    column: username
   data:
     usernameOrEmail: "mockup"
     password: "mockup"

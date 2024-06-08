@@ -13,3 +13,4 @@ Library           JSONLibrary
 Library           OperatingSystem
 
 Resource          ./keywords/util/util_keyword.robot
+Resource          ./keywords/util/database_keyword.robot

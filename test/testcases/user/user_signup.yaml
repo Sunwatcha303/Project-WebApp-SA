@@ -1,0 +1,41 @@
+success:
+  testdata:
+    data:
+      username: "mockup"
+      fullname: "mockup mockup"
+      email: "mockup@mockup.com"
+      password: "mockup"
+    table: users
+    column: username
+  status_code: 200
+  expect:
+    name: 'SIGNUP_SUCCESSFUL'
+    desc_th: 'สมัครสมาชิกสำเร็จ'
+    desc_en: 'Sign-up successful'
+fail:
+  without_api_key:
+    testdata:
+      username: "mockup"
+      fullname: "mockup mockup"
+      email: "mockup@mockup.com"
+      password: "mockup"
+    status_code: 400
+    expect:
+      name: 'REQUIRE_API_KEY'
+      desc_th: 'ต้องการ api key'
+      desc_en: 'Require api key'
+  duplicate_username:
+    predata:
+      table: users
+      column: 'username'
+      key: "(username, email, password, fullname)"
+    testdata:
+      username: "mockup"
+      fullname: "mockup mockup"
+      email: "mockup@mockup.com"
+      password: "mockup"
+    status_code: 401
+    expect:
+      name: 'DUPLICATE_USERNAME_OR_EMAIL'
+      desc_th: 'ชื่อผู้ใช้หรืออีเมลนี้มีคนใช้ไปแล้ว'
+      desc_en: 'Duplicate username or email'

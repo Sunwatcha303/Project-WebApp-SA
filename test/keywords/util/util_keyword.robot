@@ -25,3 +25,8 @@ Verify response body
     Should Be Equal    ${expected.name}    ${name}
     Should Be Equal    ${expected.desc_th}    ${desc_th}
     Should Be Equal    ${expected.desc_en}    ${desc_en}
+
+Prepare Insert User Data
+    [Arguments]    ${data}
+    ${val}=    Set Variable    '${data["username"]}', '${data["email"]}', '${data["password"]}', '${data["fullname"]}'
+    Set Test Variable    ${val}
