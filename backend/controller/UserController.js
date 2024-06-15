@@ -1,6 +1,6 @@
 const { GetUserByUsernameOrEmail, AddUser } = require('../repositories/UsersRepositories');
-
-const { errorHandler, logging } = require('../util/logging');
+const logging = require('../util/logging')
+const { errorHandler, successHandler } = require('../util/responseHandler');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -17,7 +17,7 @@ const SignIn = async (req, res) => {
         const user = await GetUserByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
         if (!user) {
             const errHd = errorHandler.INVALID_USERNAME_OR_PASSWORD;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
@@ -34,10 +34,10 @@ const SignIn = async (req, res) => {
             const token = jwt.sign(
                 { id: user.id, username: user.username, email: user.email },
                 SECRET_KEY,
-                { expiresIn: '1d' }
+                { expiresIn: '5d' }
             );
-            const log = logging.SIGNIN_SUCCESSFUL;
-            console.error(log);
+            const log = successHandler.SIGNIN_SUCCESSFUL;
+            logging(req, log, token);
             return res.status(log.code).json({
                 name: log.name,
                 desc_th: log.desc_th,
@@ -46,7 +46,7 @@ const SignIn = async (req, res) => {
             });
         } else {
             const errHd = errorHandler.INVALID_USERNAME_OR_PASSWORD;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
@@ -55,7 +55,8 @@ const SignIn = async (req, res) => {
         }
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -69,13 +70,12 @@ const SignIn = async (req, res) => {
 // @access public
 const SignUp = async (req, res) => {
     const { username, fullname, email, password } = req.body;
-    console.log(username, fullname, email, password);
 
     try {
         const user = await GetUserByUsernameOrEmail(username, email);
         if (user) {
             const errHd = errorHandler.DUPLICATE_USERNAME_OR_EMAIL;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
@@ -94,11 +94,11 @@ const SignUp = async (req, res) => {
         const token = jwt.sign(
             { id: newUser.id, username: newUser.username, email: newUser.email },
             SECRET_KEY,
-            { expiresIn: '1d' }
+            { expiresIn: '5d' }
         );
 
-        const log = logging.SIGNUP_SUCCESSFUL;
-        console.error(log);
+        const log = successHandler.SIGNUP_SUCCESSFUL;
+        logging(req, log, token);
         return res.status(log.code).json({
             name: log.name,
             desc_th: log.desc_th,
@@ -107,7 +107,8 @@ const SignUp = async (req, res) => {
         });
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,

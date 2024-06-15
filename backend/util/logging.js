@@ -1,32 +1,30 @@
-const responseHandler = {
-    log: function(code, name, desc_th, desc_en) {
-        return {
-            code,
-            name,
-            desc_th,
-            desc_en,
-        };
-    }
+const config = require("../config");
+
+const logging = (req, responseHandler, response) => {
+    const HOST = req.hostname;
+    const PORT = req.socket.localPort;
+
+    const url = `http://${HOST}:${PORT}${req.originalUrl}`;
+    console.log(`\nRequest from: ${url}`);
+    console.log(`Time: ${getCurrentDateTime()}`);
+    console.log(`Request body:`);
+    console.log(req.body)
+    console.log(`Response handler:`);
+    console.log(responseHandler);
+    console.log(`Response body:`);
+    console.log(response);
+};
+
+const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
     
-};
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}; 
 
-const errorHandler = {
-    EXPIRED_OR_INVALID_TOKEN: responseHandler.log(401, 'EXPIRED_OR_INVALID_TOKEN', 'token ไม่ถูกต้องหรือหมดอายุ', 'Expired or invalid token'),
-    REQUIRE_TOKEN: responseHandler.log(400, 'REQUIRE_TOKEN', 'ต้องการ token', 'Require token'),
-
-    MOVIE_NOT_FOUND: responseHandler.log(404, 'MOVIE_NOT_FOUND','ไม่พบภาพยนตร์', 'Movie not found'),
-    SERVER_ERROR: responseHandler.log(500, 'SERVER_ERROR', 'ข้อผิดพลาดของเซิร์ฟเวอร์', 'Server error'),
-
-    INVALID_USERNAME_OR_PASSWORD: responseHandler.log(401, 'INVALID_USERNAME_OR_PASSWORD', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'Invalid username or password'),
-    DUPLICATE_USERNAME_OR_EMAIL: responseHandler.log(401, 'DUPLICATE_USERNAME_OR_EMAIL', 'ชื่อผู้ใช้หรืออีเมลนี้มีคนใช้ไปแล้ว', 'Duplicate username or email'),
-
-    REQUIRE_API_KEY: responseHandler.log(400, 'REQUIRE_API_KEY', 'ต้องการ api key', 'Require api key'),
-    INVALID_API_KEY: responseHandler.log(401, ' INVALID_API_KEY', 'Api key ไม่ถูกต้อง', 'Invalid api key'),
-};
-
-const logging = {
-    SIGNIN_SUCCESSFUL: responseHandler.log(200, 'SIGNIN_SUCCESSFUL', 'เข้าสู่ระบบสำเร็จ', 'Sign-in successful'),
-    SIGNUP_SUCCESSFUL: responseHandler.log(200, 'SIGNUP_SUCCESSFUL', 'สมัครสมาชิกสำเร็จ', 'Sign-up successful'),
-}
-
-module.exports = {errorHandler, logging};
+module.exports = logging;

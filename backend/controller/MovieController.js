@@ -6,8 +6,9 @@ const {
     UpdateMovieByIdRepo,
     DeleteMovieByIdRepo,
 } = require('../repositories/MoviesRepositories');
+const logging = require('../util/logging');
 
-const {errorHandler, logging} = require('../util/logging');
+const { errorHandler, successHandler } = require('../util/responseHandler');
 
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
@@ -18,21 +19,21 @@ require('dotenv').config();
 const GetAllMovie = async (req, res) => {
     try {
         const movies = await GetAllMoviesRepo();
-        console.log('URL:', req.originalUrl); // Add URL logging
         if (movies.length === 0) {
-            console.log('No movies found'); // Add logging
             const errHd = errorHandler.MOVIE_NOT_FOUND;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
                 desc_en: errHd.desc_en
             });
         }
+        logging(req, null, movies);
         return res.status(200).json(movies);
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -48,21 +49,21 @@ const GetMovieById = async (req, res) => {
     try {
         const { id } = req.params;
         const movie = await GetMovieByIdRepo(id);
-        console.log('URL:', req.originalUrl); // Add URL logging
         if (!movie) {
-            console.log('Movie not found'); // Add logging
             const errHd = errorHandler.MOVIE_NOT_FOUND;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
                 desc_en: errHd.desc_en
             });
         }
+        logging(req, null, movie);
         return res.status(200).json(movie);
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -78,21 +79,21 @@ const GetMoviesBySearchQuery = async (req, res) => {
     try {
         const { query } = req.params;
         const movies = await GetMoviesBySearchQueryRepo(query);
-        console.log('URL:', req.originalUrl); // Add URL logging
         if (!movies) {
-            console.log('Movie not found'); // Add logging
             const errHd = errorHandler.MOVIE_NOT_FOUND;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
                 desc_en: errHd.desc_en
             });
         }
+        logging(req, null, movies);
         return res.status(200).json(movies);
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -110,12 +111,13 @@ const AddMovie = async (req, res) => {
 
     try {
         const newMovie = await AddMovieRepo(id, name, description, release_date, duration, cover_url);
-        console.log('URL:', req.originalUrl); // Add URL logging
-        console.log('New movie added:', newMovie); // Add logging
-        return res.status(201).json({ message: 'Movie added successfully', movie: newMovie });
+        const log = successHandler.ADDED_MOVIE;
+        logging(req, log, newMovie);
+        return res.status(log.code).json(newMovie);
     } catch (error) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -133,11 +135,9 @@ const UpdateMovieById = async (req, res) => {
 
     try {
         const movie = await GetMovieByIdRepo(id);
-        console.log('URL:', req.originalUrl); // Add URL logging
-        console.log('Movie to update:', movie); // Add logging
         if (!movie) {
             const errHd = errorHandler.MOVIE_NOT_FOUND;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
@@ -146,11 +146,13 @@ const UpdateMovieById = async (req, res) => {
         }
 
         const updateMovie = await UpdateMovieByIdRepo(id, name, description, release_date, duration, cover_url);
-        console.log('Updated movie:', updateMovie); // Add logging
-        return res.status(200).json({ message: 'Movie updated successfully', movie: updateMovie });
+        const log = successHandler.UPDATED_MOVIE;
+        logging(req, log, updateMovie);
+        return res.status(log.code).json(updateMovie);
     } catch (err) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
@@ -167,10 +169,9 @@ const DeleteMovieById = async (req, res) => {
 
     try {
         const movie = await GetMovieByIdRepo(id);
-        console.log('URL:', req.originalUrl); // Add URL logging
         if (!movie) {
             const errHd = errorHandler.MOVIE_NOT_FOUND;
-            console.error(errHd);
+            logging(req, errHd, errHd);
             return res.status(errHd.code).json({
                 name: errHd.name,
                 desc_th: errHd.desc_th,
@@ -179,11 +180,13 @@ const DeleteMovieById = async (req, res) => {
         }
 
         await DeleteMovieByIdRepo(id);
-        console.log('Deleted movie:', id); // Add logging
-        return res.status(200).json({ message: 'Movie deleted successfully', movie: id });
+        const log = successHandler.DELETED_MOVIE;
+        logging(req, log, movie);
+        return res.status(log.code).json(movie);
     } catch (error) {
         const errHd = errorHandler.SERVER_ERROR;
-        console.error(err, errHd);
+        console.error(err);
+        logging(req, errHd, errHd);
         return res.status(errHd.code).json({
             name: errHd.name,
             desc_th: errHd.desc_th,
