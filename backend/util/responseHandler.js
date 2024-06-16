@@ -14,7 +14,7 @@ const errorHandler = {
     EXPIRED_OR_INVALID_TOKEN: responseHandler.log(401, 'EXPIRED_OR_INVALID_TOKEN', 'token ไม่ถูกต้องหรือหมดอายุ', 'Expired or invalid token'),
     REQUIRE_TOKEN: responseHandler.log(400, 'REQUIRE_TOKEN', 'ต้องการ token', 'Require token'),
 
-    MOVIE_NOT_FOUND: responseHandler.log(404, 'MOVIE_NOT_FOUND','ไม่พบภาพยนตร์', 'Movie not found'),
+    MOVIE_NOT_FOUND: responseHandler.log(204, 'MOVIE_NOT_FOUND','ไม่พบภาพยนตร์', 'Movie not found'),
     SERVER_ERROR: responseHandler.log(500, 'SERVER_ERROR', 'ข้อผิดพลาดของเซิร์ฟเวอร์', 'Server error'),
 
     INVALID_USERNAME_OR_PASSWORD: responseHandler.log(401, 'INVALID_USERNAME_OR_PASSWORD', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'Invalid username or password'),

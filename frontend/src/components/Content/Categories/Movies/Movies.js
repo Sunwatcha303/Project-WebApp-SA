@@ -24,8 +24,13 @@ const Movies = ({ query , isSearch}) => {
                     navigate('/signin');
                     return;
                 }
-                const data = await response.json();
-                setMovies(data);
+                else if(response.status === 204){
+                    setMovies([]);
+                }
+                else{
+                    const data = await response.json();
+                    setMovies(data);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -46,8 +51,13 @@ const Movies = ({ query , isSearch}) => {
                     navigate('/signin');
                     return;
                 }
-                const data = await response.json();
-                setMovies(data);
+                else if(response.status === 204){
+                    setMovies([]);
+                }
+                else{
+                    const data = await response.json();
+                    setMovies(data);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
