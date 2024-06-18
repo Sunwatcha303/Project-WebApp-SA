@@ -4,3 +4,4 @@ robotframework-databaselibrary==1.2.4
 urllib3==1.26.15
 robotframework-jsonlibrary==0.3.1
 pymysql==1.0.2
+pyyaml==6.0

@@ -11,9 +11,9 @@ TESTCASE_01 success - post signin
     Given Connect database
     And Prepare insert user data    ${success.predata.value}
     And Execute insert data    ${success.predata.table}    ${success.predata.key}
-    When Call api for post signin    ${BACKEND.API_KEY}    ${success.data}
-    Then Verify response http status    ${success.status_code}
-    And Verify response body    ${success.expect}
+    Run Keyword And Continue On Failure  Call api for post signin    ${BACKEND.API_KEY}    ${success.data}
+    Run Keyword And Continue On Failure  Verify response http status    ${success.status_code}
+    Run Keyword And Continue On Failure  Verify response body    ${success.expect}
     Then Execute Delete Data    ${success.predata.table}    ${success.predata.column}    ${success.predata.value.username}
     And Disconnect database
 
@@ -22,9 +22,9 @@ TESTCASE_02 fail - post signin without api key
     Given Connect database
     And Prepare insert user data    ${success.predata.value}
     And Execute insert data    ${success.predata.table}    ${success.predata.key}
-    When Call api for post signin    ${null}    ${fail.without_api_key.data}
-    Then Verify response http status    ${fail.without_api_key.status_code}
-    And Verify response body    ${fail.without_api_key.expect}
+    Run Keyword And Continue On Failure  Call api for post signin    ${null}    ${fail.without_api_key.data}
+    Run Keyword And Continue On Failure  Verify response http status    ${fail.without_api_key.status_code}
+    Run Keyword And Continue On Failure  Verify response body    ${fail.without_api_key.expect}
     Then Execute Delete Data    ${success.predata.table}    ${success.predata.column}    ${success.predata.value.username}
     And Disconnect database
 
@@ -33,9 +33,9 @@ TESTCASE_03 fail - post signin wrong password
     Given Connect database
     And Prepare insert user data    ${success.predata.value}
     And Execute insert data    ${success.predata.table}    ${success.predata.key}
-    When Call api for post signin    ${BACKEND.API_KEY}    ${fail.wrong_password.data}
-    Then Verify response http status    ${fail.wrong_password.status_code}
-    And Verify response body    ${fail.wrong_password.expect}
+    Run Keyword And Continue On Failure  Call api for post signin    ${BACKEND.API_KEY}    ${fail.wrong_password.data}
+    Run Keyword And Continue On Failure  Verify response http status    ${fail.wrong_password.status_code}
+    Run Keyword And Continue On Failure  Verify response body    ${fail.wrong_password.expect}
     Then Execute Delete Data    ${success.predata.table}    ${success.predata.column}    ${success.predata.value.username}
     And Disconnect database
 
@@ -44,8 +44,8 @@ TESTCASE_04 fail - post signin no username
     Given Connect database
     And Prepare insert user data    ${success.predata.value}
     And Execute insert data    ${success.predata.table}    ${success.predata.key}
-    When Call api for post signin    ${BACKEND.API_KEY}    ${fail.wrong_username.data}
-    Then Verify response http status    ${fail.wrong_username.status_code}
-    And Verify response body    ${fail.wrong_username.expect}
+    Run Keyword And Continue On Failure  Call api for post signin    ${BACKEND.API_KEY}    ${fail.wrong_username.data}
+    Run Keyword And Continue On Failure  Verify response http status    ${fail.wrong_username.status_code}
+    Run Keyword And Continue On Failure  Verify response body    ${fail.wrong_username.expect}
     Then Execute Delete Data    ${success.predata.table}    ${success.predata.column}    ${success.predata.value.username}
     And Disconnect database

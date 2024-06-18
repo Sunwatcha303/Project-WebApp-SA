@@ -4,10 +4,19 @@ Resource    ../../config.robot
 
 *** Keywords ***
 Set Host Variable
-    IF    '${BACKEND.ENV}' == 'development'
+    IF    '${ENV}' == 'development'
         ${host}=    Set Variable    ${BACKEND.HOST_DEV}
     ELSE
         ${host}=    Set Variable    ${BACKEND.HOST_PROD}
+    END
+    RETURN    ${host}
+
+
+Set Database Host Variable
+    IF    '${ENV}' == 'development'
+        ${host}=    Set Variable    ${DATABASE.HOST_DEV}
+    ELSE
+        ${host}=    Set Variable    ${DATABASE.HOST_PROD}
     END
     RETURN    ${host}
 

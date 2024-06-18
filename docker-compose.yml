@@ -32,6 +32,20 @@ services:
       - app-network
     env_file:
       - ./frontend/.env
+  
+  test:
+    build:
+      context: ./test
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    env_file:
+      - ./test/env.yaml
+    depends_on:
+      backend:
+        condition: service_healthy
 
   db:
     image: mysql:latest
