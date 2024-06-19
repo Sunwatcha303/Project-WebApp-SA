@@ -5,6 +5,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: 65050816/backend:latest
     ports:
       - "5001:5001"
     networks:
@@ -26,6 +27,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: 65050816/frontend:latest
     ports:
       - "3000:80"
     networks:
@@ -37,6 +39,7 @@ services:
     build:
       context: ./test
       dockerfile: Dockerfile
+    image: 65050816/test:latest
     ports:
       - "8080:8080"
     networks:
@@ -48,14 +51,16 @@ services:
         condition: service_healthy
 
   db:
-    image: mysql:latest
-    container_name: mysql-container
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    image: 65050816/database:latest
     environment:
       MYSQL_ROOT_PASSWORD: 1234567890
       MYSQL_DATABASE: MADSS
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
-      - "3306":"3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./backend/database/sql/testMoviesScript.sql:/docker-entrypoint-initdb.d/testMoviesScript.sql:ro
