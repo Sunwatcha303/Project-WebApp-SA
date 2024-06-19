@@ -55,7 +55,7 @@ services:
       MYSQL_DATABASE: MADSS
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
-      - "3306"
+      - "3306":"3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./backend/database/sql/testMoviesScript.sql:/docker-entrypoint-initdb.d/testMoviesScript.sql:ro
