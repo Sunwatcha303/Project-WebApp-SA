@@ -51,7 +51,7 @@ services:
         condition: service_healthy
 
   db:
-    image: mysql:latest
+    image: 65050816/mysql:latest
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: 1234567890
