@@ -53,7 +53,7 @@ services:
   db:
     build:
       context: ./database
-      dockerile: Dockerfile
+      dockerfile: Dockerfile
     image: 65050816/database:latest
     environment:
       MYSQL_ROOT_PASSWORD: 1234567890
