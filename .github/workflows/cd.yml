@@ -10,14 +10,34 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        
       - name: Pull Docker Images
-        run: docker-compose pull
+        run: |
+          sudo docker pull 65050816/database:latest
+          sudo docker pull 65050816/backend:latest
+          sudo docker pull 65050816/test:latest
+          sudo docker pull 65050816/frontend:latest
       
       - name: Delete old Docker containers
-        run: docker-compose down
+        run: |
+          sudo docker rm -f database-container || true
+          sudo docker rm -f backend-container || true
+          sudo docker rm -f test-container || true
+          sudo docker rm -f frontend-container || true
 
       - name: Run Docker containers
-        run: docker-compose up -d
+        run: |
+          sudo docker run -d --name database-container \
+            -p 3306:3306 \
+            65050816/database:latest
+
+          sudo docker run -d --name backend-container \
+            -p 5001:5001 \
+            65050816/backend:latest
+
+          sudo docker run -d --name test-container \
+            -p 8080:8080 \
+            65050816/test:latest
+
+          sudo docker run -d --name frontend-container \
+            -p 3000:80 \
+            65050816/frontend:latest
