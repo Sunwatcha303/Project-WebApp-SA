@@ -2,10 +2,13 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflow: ["CI Pipeline"]
+    workflows: ["CI Pipeline"]
     types: 
     - completed
 
+jobs:
+  deploy:
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
