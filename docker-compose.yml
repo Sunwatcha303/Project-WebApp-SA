@@ -55,23 +55,18 @@ services:
       context: ./database
       dockerfile: Dockerfile
     image: 65050816/database:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234567890
-      MYSQL_DATABASE: MADSS
-      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
-      - "3306:3306"
+      - "3307:3306"  # Map host port 3306 to container port 3307
     volumes:
-      - db_data:/var/lib/mysql
-      - ./backend/database/sql/testMoviesScript.sql:/docker-entrypoint-initdb.d/testMoviesScript.sql:ro
+      - db_data:/var/lib/mysql  # Persist MySQL data
+      - ./backend/database/sql/testMoviesScript.sql:/docker-entrypoint-initdb.d/testMoviesScript.sql:ro  # Mount SQL script for initialization
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234567890  # Set MySQL root password
+      MYSQL_DATABASE: MADSS  # Create a database named MADSS
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"  # Do not allow empty password
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p1234567890 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
+    
 
 volumes:
   db_data:
