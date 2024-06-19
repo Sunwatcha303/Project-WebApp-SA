@@ -10,9 +10,6 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Pull Docker Compose file
-        uses: actions/checkout@v2  # This checks out your repository by default
-
       - name: Pull Docker Images
         run: sudo docker-compose pull
       
