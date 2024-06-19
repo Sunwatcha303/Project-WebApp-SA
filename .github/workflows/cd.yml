@@ -1,0 +1,20 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflow: ["CI Pipeline"]
+    types: 
+    - completed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Pull Docker Images
+        run: docker-compose pull
+      
+      - name: Delete old Docker containers
+        run: docker-compose down
+
+      - name: Run Docker containers
+        run: docker-compose up -d
