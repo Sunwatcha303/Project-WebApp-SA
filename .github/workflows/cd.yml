@@ -10,34 +10,14 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - name: Pull Docker Compose file
+        uses: actions/checkout@v2  # This checks out your repository by default
+
       - name: Pull Docker Images
-        run: |
-          sudo docker pull 65050816/database:latest
-          sudo docker pull 65050816/backend:latest
-          sudo docker pull 65050816/test:latest
-          sudo docker pull 65050816/frontend:latest
+        run: sudo docker-compose pull
       
-      - name: Delete old Docker containers
-        run: |
-          sudo docker rm -f database-container || true
-          sudo docker rm -f backend-container || true
-          sudo docker rm -f test-container || true
-          sudo docker rm -f frontend-container || true
-
-      - name: Run Docker containers
-        run: |
-          sudo docker run -d --name database-container \
-            -p 3306:3306 \
-            65050816/database:latest
-
-          sudo docker run -d --name backend-container \
-            -p 5001:5001 \
-            65050816/backend:latest
-
-          sudo docker run -d --name test-container \
-            -p 8080:8080 \
-            65050816/test:latest
-
-          sudo docker run -d --name frontend-container \
-            -p 3000:80 \
-            65050816/frontend:latest
+      - name: Down old container
+        run: sudo docker-compose down
+      
+      - name: Up new container
+        run: sudo docker-compose up
