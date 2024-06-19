@@ -51,8 +51,10 @@ services:
         condition: service_healthy
 
   db:
-    image: 65050816/mysql:latest
-    container_name: mysql-container
+    build:
+      context: ./database
+      dockerile: Dockerfile
+    image: 65050816/database:latest
     environment:
       MYSQL_ROOT_PASSWORD: 1234567890
       MYSQL_DATABASE: MADSS
