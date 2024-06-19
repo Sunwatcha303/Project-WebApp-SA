@@ -5,6 +5,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: 65050816/backend:latest
     ports:
       - "5001:5001"
     networks:
@@ -26,6 +27,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: 65050816/frontend:latest
     ports:
       - "3000:80"
     networks:
@@ -37,6 +39,7 @@ services:
     build:
       context: ./test
       dockerfile: Dockerfile
+    image: 65050816/test:latest
     ports:
       - "8080:8080"
     networks:
