@@ -6,6 +6,9 @@ on:
     types: 
     - completed
 
+jobs:
+  build:
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
