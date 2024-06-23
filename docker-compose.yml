@@ -11,7 +11,7 @@ services:
     networks:
       - app-network
     depends_on:
-      db:
+      database:
         condition: service_healthy
     restart: always
     env_file:
@@ -34,6 +34,9 @@ services:
       - app-network
     env_file:
       - ./frontend/.env
+    depends_on:
+      backend:
+        condition: service_healthy
   
   test:
     build:
@@ -50,7 +53,7 @@ services:
       backend:
         condition: service_healthy
 
-  db:
+  database:
     build:
       context: ./database
       dockerfile: Dockerfile
@@ -66,6 +69,12 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"  # Do not allow empty password
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p1234567890"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     
 
 volumes:
