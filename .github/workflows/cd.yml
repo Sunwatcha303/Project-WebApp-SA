@@ -8,13 +8,15 @@ on:
 
 jobs:
   deploy:
-    runs-on: ec2
+    runs-on: self-hosted
     steps:
-      - name: Pull Docker Images
-        run: sudo docker-compose pull
+      - name: test
+        run: docker images
+      # - name: Pull Docker Images
+      #   run: sudo docker-compose pull
       
-      - name: Down old container
-        run: sudo docker-compose down
+      # - name: Down old container
+      #   run: sudo docker-compose down
       
-      - name: Up new container
-        run: sudo docker-compose up
+      # - name: Up new container
+      #   run: sudo docker-compose up
