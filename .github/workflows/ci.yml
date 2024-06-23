@@ -51,7 +51,7 @@ jobs:
         echo "  PASSWORD: ${{ secrets.DATABASE_PASSWORD }}" >> ./test/env.yaml
         echo "BACKEND:" >> ./test/env.yaml
         echo "  HOST_DEV: ${{ secrets.BACKEND_HOST_DEV }}" >> ./test/env.yaml
-        echo "  HOST_PROD: ${{ secrets.BACKEND_HOST_PROD }}" >> ./test/env.yaml
+        echo "  HOST_PROD: ${{ secrets.DOCKER_BACKEND_HOST_PROD }}" >> ./test/env.yaml
         echo "  PORT: ${{ secrets.BACKEND_PORT }}" >> ./test/env.yaml
         echo "  API_KEY: ${{ secrets.API_KEY }}" >> ./test/env.yaml
 
