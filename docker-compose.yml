@@ -14,8 +14,8 @@ services:
       database:
         condition: service_healthy
     restart: always
-    env_file:
-      - ./backend/.env
+    # env_file:
+    #   - ./backend/.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/health/"]
       interval: 10s
@@ -32,8 +32,8 @@ services:
       - "3000:80"
     networks:
       - app-network
-    env_file:
-      - ./frontend/.env
+    # env_file:
+    #   - ./frontend/.env
     depends_on:
       backend:
         condition: service_healthy
@@ -47,8 +47,8 @@ services:
       - "8080:8080"
     networks:
       - app-network
-    env_file:
-      - ./test/env.yaml
+    # env_file:
+    #   - ./test/env.yaml
     depends_on:
       backend:
         condition: service_healthy
