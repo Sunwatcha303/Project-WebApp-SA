@@ -34,6 +34,9 @@ services:
       - app-network
     env_file:
       - ./frontend/.env
+    depends_on:
+      backend:
+        condition: service_healthy
   
   test:
     build:
@@ -49,12 +52,6 @@ services:
     depends_on:
       backend:
         condition: service_healthy
-    healthcheck:
-      test: ["CMD", "robot", "--outputdir", "/output", "/tests"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
-      start_period: 60s
 
   database:
     build:
