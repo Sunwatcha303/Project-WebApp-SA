@@ -22,6 +22,12 @@ jobs:
         run: |
           cat docker-compose.yml
           cat docker-compose.build.yml
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker Images
         run: sudo docker-compose -f docker-compose.yml pull
