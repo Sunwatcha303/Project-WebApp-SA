@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: 65050816/backend:latest
     ports:
       - "5001:5001"
@@ -11,6 +14,8 @@ services:
       database:
         condition: service_healthy
     restart: always
+    env_file:
+      - ./backend/.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/health/"]
       interval: 10s
@@ -19,20 +24,27 @@ services:
       start_period: 30s
 
   frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     image: 65050816/frontend:latest
     ports:
-      - "80:80"
+      - "3000:80"
     networks:
       - app-network
+    env_file:
+      - ./frontend/.env
     depends_on:
       backend:
         condition: service_healthy
-    restart: always
-
+  
   test:
+    build:
+      context: ./test
+      dockerfile: Dockerfile
     image: 65050816/test:latest
     ports:
-      - "8080"
+      - "8080:8080"
     networks:
       - app-network
     depends_on:
@@ -40,11 +52,19 @@ services:
         condition: service_healthy
 
   database:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     image: 65050816/database:latest
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./backend/database/sql/testMoviesScript.sql:/docker-entrypoint-initdb.d/testMoviesScript.sql:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234567890
+      MYSQL_DATABASE: MADSS  
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"  
     networks:
       - app-network
     healthcheck:
@@ -53,6 +73,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    
 
 volumes:
   db_data:
