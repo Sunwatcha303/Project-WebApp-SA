@@ -16,6 +16,13 @@ jobs:
           echo "test" >> text
           ls
       
+      - uses: actions/checkout@v4
+
+      - name: test
+        run: |
+          cat docker-compose.yml
+          cat docker-compose.build.yml
+
       - name: Pull Docker Images
         run: sudo docker-compose -f docker-compose.yml pull
       
