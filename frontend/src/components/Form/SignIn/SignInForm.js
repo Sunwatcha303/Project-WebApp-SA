@@ -16,6 +16,7 @@ const SignInForm = () => {
         const dataBody = JSON.stringify({ usernameOrEmail, password });
 
         try {
+            console.log(config)
             const response = await fetch(`${config.apiUrl}/user/signin/`, {
                 method: 'POST',
                 headers: {
